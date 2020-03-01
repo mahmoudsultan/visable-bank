@@ -9,12 +9,20 @@ module Transactions
     end
 
     def execute
-      # Create a new transactions
-      Transaction.create(to_account: @to_account, from_account: @from_account, amount: @amount)
+      BankAccount.transaction do
+        # Acquire locks on the two Bank Accounts
+        BankAccount.lock.find(@to_account.id, @from_account.id)
 
-      # Move amount from the from_account to the to_account
-      @to_account.update(balance: @to_account.balance + @amount)
-      @from_account.update(balance: @from_account.balance - @amount)
+        # Create a new transactions
+        Transaction.create(to_account: @to_account, from_account: @from_account, amount: @amount)
+
+        # Move amount from the from_account to the to_account
+        @to_account.balance += @amount
+        @from_account.balance -= @amount
+        
+        @from_account.save!
+        @to_account.save!
+      end
     end
   end
 end
