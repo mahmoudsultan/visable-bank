@@ -19,7 +19,7 @@ module Transactions
         # Move amount from the from_account to the to_account
         @to_account.balance += @amount
         @from_account.balance -= @amount
-        
+
         @from_account.save!
         @to_account.save!
       end

@@ -34,10 +34,14 @@ module VisableBank
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    # Autoloading Services classes
+    # Autoloading Services and Blueprint classes
     config.to_prepare do
       Dir.glob(Rails.root + 'app/services/**/*.rb').each do |service_file|
         require_dependency(service_file)
+      end
+
+      Dir.glob(Rails.root + 'app/blueprints/**/*.rb').each do |blueprint_file|
+        require_dependency(blueprint_file)
       end
     end
   end
