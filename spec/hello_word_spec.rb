@@ -2,10 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe do
-  describe 'Hello, World' do
-    it 'succeeds' do
-      expect(true).to be_truthy
-    end
+describe 'Hello, World' do
+  it 'succeeds' do
+    dummy_variable = true
+    expect(dummy_variable).to be_truthy
   end
 end
