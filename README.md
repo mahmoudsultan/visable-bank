@@ -43,6 +43,9 @@ To fetch transactions for a BankAccount I'm using a custom where query instead o
 
 This means however that in case of implementing a listing service and including transactions for each this will result in O(n+1) query; so this needs to be handled in that case.
 
+### Negative Balance is Allowed
+I've put the assumption that negative balance is allowed based on https://www.quora.com/Can-a-bank-account-have-a-negative-balance, if this is against requirment a check can be added in `create_service`.
+
 ### Using BankAccount ID
 For simplicity and time I've used BankAccount Ids when referencing and creating a transaction.
 
