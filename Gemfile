@@ -31,6 +31,26 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Call 'pry' anywhere in the code to stop execution and get a debugger console
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  # rspec, for testing and mocking.
+  gem 'rspec-rails', '~> 3.7'
+  # Use to generate stubbed objects in tests.
+  gem 'factory_bot_rails'
+  # Use to assist testing the JSON responses.
+  gem 'json_spec'
+  # Use to test models.
+  gem 'shoulda-matchers', '~> 3.1'
+  # Use to test callbacks.
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
+
+  # Code quality (version locked as advised by rubocop)
+  gem 'rubocop', '~> 0.58.0', require: false
+  gem 'rubocop-rspec', '~> 1.28', '>= 1.20.1', require: false
+
+  # Fix N+1 queries
+  gem 'bullet'
 end
 
 group :development do
