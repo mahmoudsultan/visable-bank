@@ -6,4 +6,6 @@ class Transaction < ApplicationRecord
 
   validates :from_account, presence: true
   validates :to_account, presence: true
+
+  validates :amount, numericality: { greater_than: 0 }
 end

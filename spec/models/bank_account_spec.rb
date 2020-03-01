@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe BankAccount, type: :model do
   describe 'Validations' do
-    it { is_expected.to validate_uniqueness_of :account_number }
+    it { should validate_uniqueness_of :account_number }
   end
 
   describe 'Transactions' do

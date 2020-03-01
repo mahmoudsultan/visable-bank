@@ -69,3 +69,5 @@ SELECT `bank_accounts`.* FROM `bank_accounts` WHERE `bank_accounts`.`id` IN (1, 
 ```
 
 So only one will get the lock on both first.
+
+### No 0 amount Transactions are permitted

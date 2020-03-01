@@ -43,5 +43,26 @@ RSpec.describe TransactionsController, type: :controller do
         expect(response).to have_http_status :unprocessable_entity
       end
     end
+
+    context 'when the amount is not valid' do
+      let(:invalid_transaction_params) do
+        FactoryBot.attributes_for(:transaction).merge(
+          to_account_id: first_bank_account,
+          from_account_id: second_bank_account,
+          amount: 0
+        )
+      end
+
+      it 'does not create a new transaction' do
+        expect do
+          post :create, params: { transaction: invalid_transaction_params }
+        end.not_to change(Transaction, :count)
+      end
+
+      it 'returns 422' do
+        post :create, params: { transaction: invalid_transaction_params }
+        expect(response).to have_http_status :unprocessable_entity
+      end
+    end
   end
 end

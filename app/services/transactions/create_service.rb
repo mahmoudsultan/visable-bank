@@ -15,7 +15,8 @@ module Transactions
         BankAccount.lock.find(@to_account.id, @from_account.id)
 
         # Create a new transactions
-        created_transaction = Transaction.create(to_account: @to_account, from_account: @from_account, amount: @amount)
+        created_transaction = Transaction.new(to_account: @to_account, from_account: @from_account, amount: @amount)
+        created_transaction.save!
 
         # Move amount from the from_account to the to_account
         @to_account.balance += @amount
@@ -23,7 +24,10 @@ module Transactions
 
         @from_account.save!
         @to_account.save!
+      rescue ActiveRecord::RecordInvalid
+        raise ActiveRecord::Rollback
       end
+
       created_transaction
     end
   end

@@ -4,13 +4,15 @@ class TransactionsController < ApplicationController
   before_action :set_to_and_from_accounts, only: %i[create]
 
   def create
-    if @to_account.nil? || @from_account.nil?
-      render status: :unprocessable_entity
+    return render status: :unprocessable_entity if @to_account.nil? || @from_account.nil?
+      
+    created_transaction = Transactions::CreateService.new(@to_account,
+                                                          @from_account,
+                                                          transaction_params['amount'].to_i).execute
+    
+    if created_transaction.errors.any?
+      render json: { errors: created_transaction.errors }, status: :unprocessable_entity
     else
-      created_transaction = Transactions::CreateService.new(@to_account,
-                                                            @from_account,
-                                                            transaction_params['amount'].to_i).execute
-
       render json: { transaction: created_transaction }, status: :created
     end
   end
