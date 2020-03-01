@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :transaction do
-    from_account { nil }
-    to_account { nil }
-    amount { "9.99" }
+    association :from_account, factory: :bank_accounts
+    association :to_account, factory: :bank_accounts
+    amount { 9.99 }
   end
 end
