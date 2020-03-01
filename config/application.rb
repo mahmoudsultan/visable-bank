@@ -33,5 +33,12 @@ module VisableBank
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Autoloading Services classes
+    config.to_prepare do
+      Dir.glob(Rails.root + 'app/services/**/*.rb').each do |service_file|
+        require_dependency(service_file)
+      end
+    end
   end
 end
